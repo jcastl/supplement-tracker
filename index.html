@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplement & Hydration Tracker</title>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-lg mx-auto p-4">
+        <h1 class="text-2xl font-bold text-center mb-6">Daily Health Tracker</h1>
+        
+        <!-- Hydration Tracker -->
+        <div id="hydration-tracker" class="mb-8 p-4 bg-blue-50 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-xl font-semibold text-blue-800">Hydration Tracker</h2>
+                <div class="flex items-center" id="goal-container">
+                    <span class="mr-2">Goal: <span id="hydration-goal">128</span> oz</span>
+                    <button id="edit-goal-btn" class="text-blue-500 underline">Edit</button>
+                </div>
+                <div class="flex items-center hidden" id="edit-goal-container">
+                    <input type="number" id="goal-input" class="w-16 p-1 border rounded mr-2" value="128">
+                    <button id="save-goal-btn" class="px-2 py-1 bg-blue-500 text-white rounded">Set</button>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <div class="h-8 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="hydration-bar" class="h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between mb-2">
+                <button id="decrease-water" class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-blue-300">–</button>
+                <input type="range" id="water-slider" min="0" max="128" value="0" class="mx-4 flex-grow h-2 bg-blue-100 rounded-lg appearance-none">
+                <button id="increase-water" class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-blue-300">+</button>
+            </div>
+            
+            <div class="text-center font-bold text-xl text-blue-800">
+                <span id="current-water">0</span> / <span id="max-water">128</span> oz
+            </div>
+        </div>
+        
+        <!-- Supplement Checklist -->
+        <div id="supplement-checklist" class="mb-6 bg-white rounded-lg shadow overflow-hidden">
+            <h2 class="text-xl font-semibold p-4 bg-green-50 text-green-800">Supplement Checklist</h2>
+            <!-- Supplement sections will be inserted here by JavaScript -->
+        </div>
+        
+        <!-- Reset Button -->
+        <button id="reset-button" class="w-full py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none">
+            Reset Daily Tracker
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* Custom slider styles */
+input[type=range] {
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #d3eafd;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+/* Custom checkbox styling */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #10b981;
+}
+
+/* For collapsible sections */
+.section-header {
+  cursor: pointer;
+}
