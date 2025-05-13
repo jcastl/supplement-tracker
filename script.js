@@ -35,9 +35,33 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Load state from localStorage or use defaults
-    let hydrationLevel = parseInt(localStorage.getItem('hydrationLevel')) || 0;
-    let hydrationGoal = parseInt(localStorage.getItem('hydrationGoal')) || 128;
-    let supplements = JSON.parse(localStorage.getItem('supplements')) || defaultSupplements;
+    let hydrationLevel = 0;
+    let hydrationGoal = 128;
+    let supplements = JSON.parse(JSON.stringify(defaultSupplements)); // Start with a copy of defaults
+
+    // Try to load saved data
+    try {
+        const savedHydration = localStorage.getItem('hydrationLevel');
+        const savedGoal = localStorage.getItem('hydrationGoal');
+        const savedSupplements = localStorage.getItem('supplements');
+        
+        if (savedHydration !== null) {
+            hydrationLevel = parseInt(savedHydration, 10);
+        }
+        
+        if (savedGoal !== null) {
+            hydrationGoal = parseInt(savedGoal, 10);
+        }
+        
+        if (savedSupplements !== null) {
+            supplements = JSON.parse(savedSupplements);
+        }
+        
+        console.log("Successfully loaded data from storage");
+    } catch (e) {
+        console.error("Error loading from localStorage:", e);
+        // Continue with defaults
+    }
 
     // Initialize UI elements
     const waterSlider = document.getElementById('water-slider');
@@ -314,8 +338,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function saveToLocalStorage() {
-        localStorage.setItem('hydrationLevel', hydrationLevel);
-        localStorage.setItem('hydrationGoal', hydrationGoal);
-        localStorage.setItem('supplements', JSON.stringify(supplements));
+        try {
+            localStorage.setItem('hydrationLevel', hydrationLevel.toString());
+            localStorage.setItem('hydrationGoal', hydrationGoal.toString());
+            localStorage.setItem('supplements', JSON.stringify(supplements));
+            console.log("Data saved successfully");
+            
+            // Force synchronous storage by reading back the value
+            const testRead = localStorage.getItem('hydrationLevel');
+            
+        } catch (e) {
+            console.error("Error saving to localStorage:", e);
+            alert("There was an issue saving your progress. Please ensure you're not in private browsing mode.");
+        }
+    }
+
+    // Add more aggressive saving
+    window.addEventListener('pagehide', function() {
+        saveToLocalStorage();
+    });
+
+    window.addEventListener('blur', function() {
+        saveToLocalStorage();
+    });
+
+    // Check storage on startup
+    try {
+        localStorage.setItem('storageTest', 'test');
+        localStorage.removeItem('storageTest');
+        console.log("localStorage is available");
+    } catch (e) {
+        console.error("localStorage is not available:", e);
+        alert("Your browser doesn't support saving progress. Please ensure you're not in private browsing mode.");
     }
 });
